@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: cynbit-blueprint-api
+    runtime: node
+    region: singapore
+    buildCommand: npm ci
+    preDeployCommand: npm run migrate --workspace server
+    startCommand: npm run start --workspace server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_TIMEOUT_MS
+        value: "12000"
